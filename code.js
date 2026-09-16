@@ -86,16 +86,28 @@ function buildListOnce(){
 
 function updateList(now){
   if(!listBuilt) buildListOnce();
+
   const cur = slotAt(now);
-  // next occurrence time for each trial index, walking forward from current slot
-  for(let i=0;i<13;i++){
-    const idx = (cur.idx + i) % 13;
-    const slotStart = cur.slotStart + i*SLOT_MS;
-    const isActive = i===0;
+  const list = document.getElementById('list');
+
+  // Build the order starting from the current trial
+  for(let i = 0; i < TRIALS.length; i++){
+    const idx = (cur.idx + i) % TRIALS.length;
     const row = document.getElementById('row-' + idx);
+
+    const slotStart = cur.slotStart + i * SLOT_MS;
+    const isActive = i === 0;
+
+    // Move row into the correct position
+    list.appendChild(row);
+
     row.classList.toggle('active', isActive);
-    document.getElementById('time-' + idx).textContent = fmtTime(slotStart);
-    document.getElementById('eta-' + idx).textContent = isActive ? 'now' : fmtEta(slotStart - now);
+
+    document.getElementById('time-' + idx).textContent =
+      fmtTime(slotStart);
+
+    document.getElementById('eta-' + idx).textContent =
+      isActive ? 'now' : fmtEta(slotStart - now);
   }
 }
 
