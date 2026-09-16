@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial Rotation</title>
+
+    <script src="code.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="clock">São Paulo time — <span id="clockText">--:--:--</span></div>
+        <div class="panel">
+            <div class="now-card">
+                <div class="now-label">Active now</div>
+                <div class="now-name" id="nowName">—</div>
+                <div class="now-meta" id="nowMeta">—</div>
+                <div class="countdown-row">
+                    <div class="countdown-label">ends in</div>
+                    <div class="countdown" id="countdown">--:--:--</div>
+                </div>
+            </div>
+
+            <div class="section-title">Full rotation, in order</div>
+            <div class="list" id="list"></div>
+        </div>
+
+        <footer>Fixed 3-hour rotation · 13 trials · repeats every 39 hours</footer>
+    </div>
+</body>
+</html>
