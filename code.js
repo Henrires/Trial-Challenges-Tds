@@ -102,7 +102,7 @@ function updateList(now) {
         dayTomorrow.setDate(dayTomorrow.getDate() + 1); // move 1 day
         dayTomorrow.setHours(0, 0, 0, 0);
 
-        // hide tomorrow to avoid getting confused
+        // hide tomorrow and after to avoid getting confused
         const isTomorrow =
         new Date(slotStart) >= dayTomorrow;
 
@@ -123,6 +123,8 @@ function updateList(now) {
 function tick() {
     const now = Date.now();
     const cur = slotAt(now);
+    const previousIdx = (cur.idx - 1 + TRIALS.length) % TRIALS.length;
+
     const t = TRIALS[cur.idx];
     const newColor = `color-mix(in srgb, ${t.color} 50%, black)`;
 
@@ -134,6 +136,7 @@ function tick() {
     document.getElementById('nowName').textContent = t.name;
     document.getElementById('nowMeta').innerHTML = `<b>${t.map}</b> — ${t.effect}`;
     document.getElementById('countdown').textContent = fmtDur(cur.slotEnd - now);
+    document.getElementById('previousLabel').textContent = `Previous: ${TRIALS[previousIdx].name}`;
 
     updateList(now);
 }
