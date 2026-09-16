@@ -26,16 +26,26 @@ function slotAt(ms){
   return { idx, slotStart, slotEnd: slotStart + SLOT_MS };
 }
 
-function fmtTime(ms){
+// get timezone first
+const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+function fmtTime(ms) {
   return new Date(ms).toLocaleTimeString('en-GB', {
-    timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit'
+    timeZone: userTimeZone, 
+    hour: '2-digit', 
+    minute: '2-digit'
   });
 }
-function fmtClock(ms){
+
+function fmtClock(ms) {
   return new Date(ms).toLocaleTimeString('en-GB', {
-    timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit'
+    timeZone: userTimeZone, 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    second: '2-digit'
   });
 }
+
 function fmtDur(msLeft){
   const total = Math.max(0, Math.floor(msLeft/1000));
   const h = String(Math.floor(total/3600)).padStart(2,'0');
@@ -93,8 +103,9 @@ function tick(){
   const now = Date.now();
   const cur = slotAt(now);
   const t = TRIALS[cur.idx];
+  const newColor = `color-mix(in srgb, ${t.color} 50%, black)`;
 
-  document.documentElement.style.setProperty('--accent', t.color);
+  document.documentElement.style.setProperty('--accent', newColor);
   document.querySelector('.now-card').style.setProperty('--accent', t.color);
   document.getElementById('clockText').textContent = fmtClock(now);
   document.getElementById('nowName').textContent = t.name;
