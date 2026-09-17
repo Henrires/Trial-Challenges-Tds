@@ -65,7 +65,7 @@
   }
   .now-meta b{color:var(--text);font-weight:600;}
 
-  .countdown-row{
+  .lower-row{
     display:flex;
     align-items:baseline;
     justify-content:space-between;
@@ -116,6 +116,14 @@
     background:var(--surface-2);
     transform:scale(1);
     opacity:1;
+  }
+  .row.hidden-more{
+    border-color:var(--accent);
+    border-width:1.5px;
+    border-left-width:4px;
+    background:var(--surface-2);
+    transform:scale(0.95);
+    opacity:0.3;
   }
   .row-time{
     width:52px;
