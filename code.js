@@ -128,6 +128,9 @@ function tick() {
     const t = TRIALS[cur.idx];
     const newColor = `color-mix(in srgb, ${t.color} 50%, black)`;
 
+    const elapsedInSlot = now - cur.slotStart; // time passed since this slot began
+    const sliderPercent = 100 - ((elapsedInSlot / SLOT_MS) * 100);
+
     userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     document.documentElement.style.setProperty('--accent', newColor);
@@ -138,6 +141,7 @@ function tick() {
     document.getElementById('countdown').textContent = fmtDur(cur.slotEnd - now);
     document.getElementById('previousLabel').textContent = `Previous: ${TRIALS[previousIdx].name}`;
 
+    document.getElementById('progressFill').style.width = sliderPercent + '%';
     updateList(now);
 }
 
