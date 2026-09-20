@@ -1,5 +1,5 @@
-const ANCHOR_MS = new Date('2026-09-12T03:00:00-03:00').getTime(); // Healthy Enemies
-const SLOT_MS = 3 * 60 * 60 * 1000;
+const ANCHOR_MS = new Date('2026-09-12T02:58:00-03:00').getTime(); // Healthy Enemies, shifted 2min earlier for sync
+const SLOT_MS = 2 * 60 * 60 * 1000;
 const ANCHOR_INDEX = 12; // Healthy Enemies is the last item below
 
 let specified = null
