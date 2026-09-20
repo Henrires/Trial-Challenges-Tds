@@ -156,4 +156,4 @@ function tick() {
 }
 
 tick();
-setInterval(tick, 1000);
+setInterval(tick, 100);

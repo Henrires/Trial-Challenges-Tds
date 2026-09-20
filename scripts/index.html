@@ -6,13 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trial Rotation</title>
 
-    <script src="code.js" defer></script>
+    <script src="main.js" defer></script>
+    <script src="connections.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="wrap">
-        <div class="clock">Region Timezone — <span id="clockText">--:--:--</span></div>
+        <div class="upperRow">
+            <div id="calendar">DD/MM/YYYY HH:MM:SS</div>
+            <button class="changeDate">Change Date</button>
+            <input type="datetime-local"" id="datepicker" style="display: none;">
+        </div>
+
         <div class="panel">
             <div class="now-card">
                 <div class="now-label">Active now</div>
