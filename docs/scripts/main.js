@@ -136,6 +136,9 @@ function tick() {
     const previousIdx = (cur.idx - 1 + TRIALS.length) % TRIALS.length;
 
     const t = TRIALS[cur.idx];
+    console.log(t.name)
+    document.querySelector('link[rel="icon"]').href = `media/Icons/${t.name}.webp`;
+
     const newColor = `color-mix(in srgb, ${t.color} 50%, black)`;
 
     const elapsedInSlot = target - cur.slotStart; // time passed since this slot began
