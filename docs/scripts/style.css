@@ -166,8 +166,7 @@
     opacity:1;
   }
   .row.hidden-more{
-    border-color:var(--accent);
-    border-width:1.5px;
+    border-width:1px;
     border-left-width:4px;
     background:var(--surface-2);
     transform:scale(0.95);
