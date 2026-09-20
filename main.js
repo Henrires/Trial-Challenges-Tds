@@ -2,6 +2,8 @@ const ANCHOR_MS = new Date('2026-09-12T03:00:00-03:00').getTime(); // Healthy En
 const SLOT_MS = 3 * 60 * 60 * 1000;
 const ANCHOR_INDEX = 12; // Healthy Enemies is the last item below
 
+let specified = null
+
 const TRIALS = [
     { name: "Speedy Enemies", map: "Wrecked Battlefield", effect: "All enemies are Nimble.", color: "#ffd400" },
     { name: "Glass", map: "Stained Temple", effect: "Base health is set to 1.", color: "#4caf50" },
@@ -25,6 +27,7 @@ function slotAt(ms) {
     const slotStart = ANCHOR_MS + slots * SLOT_MS;
     return { idx, slotStart, slotEnd: slotStart + SLOT_MS };
 }
+
 // get timezone first
 let userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -104,7 +107,7 @@ function updateList(now) {
 
         // hide tomorrow and after to avoid getting confused
         const isTomorrow =
-        new Date(slotStart) >= dayTomorrow;
+            new Date(slotStart) >= dayTomorrow;
 
         // Move row into the correct position
         list.appendChild(row);
@@ -121,28 +124,35 @@ function updateList(now) {
 }
 
 function tick() {
-    const now = Date.now();
-    const cur = slotAt(now);
+    let target = Date.now();
+    if (specified) { // if we have specified on other js
+        target = specified
+    }
+
+    const dateObject = new Date(target); 
+    const readableDateTime  = dateObject.toLocaleString();
+
+    const cur = slotAt(target);
     const previousIdx = (cur.idx - 1 + TRIALS.length) % TRIALS.length;
 
     const t = TRIALS[cur.idx];
     const newColor = `color-mix(in srgb, ${t.color} 50%, black)`;
 
-    const elapsedInSlot = now - cur.slotStart; // time passed since this slot began
+    const elapsedInSlot = target - cur.slotStart; // time passed since this slot began
     const sliderPercent = 100 - ((elapsedInSlot / SLOT_MS) * 100);
 
     userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     document.documentElement.style.setProperty('--accent', newColor);
     document.querySelector('.now-card').style.setProperty('--accent', t.color);
-    document.getElementById('clockText').textContent = fmtClock(now);
+    document.getElementById('calendar').textContent = readableDateTime
     document.getElementById('nowName').textContent = t.name;
     document.getElementById('nowMeta').innerHTML = `<b>${t.map}</b> — ${t.effect}`;
-    document.getElementById('countdown').textContent = fmtDur(cur.slotEnd - now);
+    document.getElementById('countdown').textContent = fmtDur(cur.slotEnd - target);
     document.getElementById('previousLabel').textContent = `Previous: ${TRIALS[previousIdx].name}`;
 
     document.getElementById('progressFill').style.width = sliderPercent + '%';
-    updateList(now);
+    updateList(target)
 }
 
 tick();
